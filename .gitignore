@@ -1,0 +1,11 @@
+tags
+*.sw*
+*.o
+*.bin
+*.elf
+*.hex
+*.lst
+*.pyc
+*.gdb_history
+.replhist
+build/
