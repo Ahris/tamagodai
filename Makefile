@@ -1,6 +1,6 @@
 CORE_OBJS = src/main.o \
-			src/stm32f0xx_it.o \
-			src/system_stm32f0xx.o
+            src/stm32f0xx_it.o \
+            src/system_stm32f0xx.o
             # src/vm.o \
             # src/mem.o \
             # src/bot.o \
@@ -25,7 +25,7 @@ HAL_OBJS = lib/hal/Src/stm32f0xx_hal.o \
 BSP_OBJS = lib/bsp/stm32f072b_discovery.o
 
 USB_OBJS = lib/cmsis/Device/ST/STM32F0xx/Source/Templates/gcc/startup_stm32f072xb.o
-		   # lib/cmsis/Device/ST/STM32F0xx/Source/Templates/system_stm32f0xx.o \
+           # lib/cmsis/Device/ST/STM32F0xx/Source/Templates/system_stm32f0xx.o \
            # lib/usb/Core/Src/usbd_core.o \
            # lib/usb/Core/Src/usbd_ctlreq.o \
            # lib/usb/Core/Src/usbd_ioreq.o \
@@ -70,41 +70,41 @@ CFLAGS += -I lib/cmsis/Include
 all: main.bin main.lst
 
 %.o: %.s
-	@echo "[AS]   $@"
-	@$(CC) -c $(CFLAGS) -o $@ $<
+    @echo "[AS]   $@"
+    @$(CC) -c $(CFLAGS) -o $@ $<
 
 %.o: %.c
-	@echo "[CC]   $@"
-	@$(CC) -c $(CFLAGS) -o $@ $<
+    @echo "[CC]   $@"
+    @$(CC) -c $(CFLAGS) -o $@ $<
 
 $(PROJ_NAME).elf: $(OBJS)
-	@echo "[LD]   $@"
-	@$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ -L$(LDSCRIPT_INC) -T$(LDSCRIPT)
-	$(SIZE) $@
+    @echo "[LD]   $@"
+    @$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ -L$(LDSCRIPT_INC) -T$(LDSCRIPT)
+    $(SIZE) $@
 
 %.bin: %.elf
-	@echo "[BIN]  $@"
-	@$(OBJCOPY) -O binary $< $@
+    @echo "[BIN]  $@"
+    @$(OBJCOPY) -O binary $< $@
 
 %.lst: %.elf
-	@echo "[LST]  $@"
-	@$(OBJDUMP) -d $< > $@
+    @echo "[LST]  $@"
+    @$(OBJDUMP) -d $< > $@
 
 # hw/bom.md: hw/bom.csv
-# 	csvtomd $< > $@
+#   csvtomd $< > $@
 
 debugserver: main.bin
-	openocd -f ocd/target.cfg
+    openocd -f ocd/target.cfg
 
 debug: main.elf
-	arm-none-eabi-gdb -x ocd/gdb $<
+    arm-none-eabi-gdb -x ocd/gdb $<
 
 clean:
-	@echo "[CLEAN]"
-	@rm -f $(OBJS)
-	@rm -f $(PROJ_NAME).elf
-	@rm -f $(PROJ_NAME).bin
-	@rm -f $(PROJ_NAME).lst
+    @echo "[CLEAN]"
+    @rm -f $(OBJS)
+    @rm -f $(PROJ_NAME).elf
+    @rm -f $(PROJ_NAME).bin
+    @rm -f $(PROJ_NAME).lst
 
 wc:
-	find . -name "*.[hc]" | grep -v "/lib/" | xargs wc -l | sort -n
+    find . -name "*.[hc]" | grep -v "/lib/" | xargs wc -l | sort -n
