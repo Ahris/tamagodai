@@ -36,6 +36,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "stdint.h"
 
 /** @addtogroup STM32F0xx_HAL_Examples
   * @{
@@ -76,6 +77,8 @@ int main(void)
   /* -1- Initialize LEDs mounted on STM32F072B-Discovery RevB board */
   BSP_LED_Init(LED3);
   BSP_LED_Init(LED4);
+  BSP_LED_Init(LED5);
+  BSP_LED_Init(LED6);
 
   /* Configure the system clock to 48 MHz */
   SystemClock_Config();
@@ -86,6 +89,18 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
+    // BSP_LED_Toggle(LED6);
+    // BSP_LED_Toggle(LED3);
+    // HAL_Delay(200);
+    // BSP_LED_Toggle(LED3);
+    // BSP_LED_Toggle(LED4);
+    // HAL_Delay(200);
+    // BSP_LED_Toggle(LED4);
+    // BSP_LED_Toggle(LED5);
+    // HAL_Delay(200);
+    // BSP_LED_Toggle(LED5);
+    // BSP_LED_Toggle(LED6);
+    // HAL_Delay(200);
   }
 }
 
@@ -139,7 +154,7 @@ static void SystemClock_Config(void)
   */
 static void Error_Handler(void)
 {
-  BSP_LED_Toggle(LED4);
+  BSP_LED_Toggle(LED5);
   /* User may add here some code to deal with this error */
   while(1)
   {
@@ -197,6 +212,7 @@ void assert_failed(char *file, uint32_t line)
   /* User can add her own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 
+  BSP_LED_Toggle(LED5);
   /* Infinite loop */
   while (1)
   {

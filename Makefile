@@ -1,54 +1,57 @@
 CORE_OBJS = src/main.o \
-            src/vm.o \
-            src/mem.o \
-            src/bot.o \
-            src/servo.o \
-            src/ps2ctrl.o \
-            src/trajectory.o
+			src/stm32f0xx_it.o \
+			src/system_stm32f0xx.o
+            # src/vm.o \
+            # src/mem.o \
+            # src/bot.o \
+            # src/servo.o \
+            # src/ps2ctrl.o \
+            # src/trajectory.o
 
-HAL_OBJS = src/hal.o \
-           src/stm32f0xx_hal_msp.o \
-           src/stm32f0xx_it.o \
-           lib/hal/Src/stm32f0xx_hal.o \
-           lib/hal/Src/stm32f0xx_hal_cortex.o \
-           lib/hal/Src/stm32f0xx_hal_uart.o \
-           lib/hal/Src/stm32f0xx_hal_rcc.o \
-           lib/hal/Src/stm32f0xx_hal_rcc_ex.o \
+HAL_OBJS = lib/hal/Src/stm32f0xx_hal.o \
            lib/hal/Src/stm32f0xx_hal_gpio.o \
-           lib/hal/Src/stm32f0xx_hal_tim.o \
-           lib/hal/Src/stm32f0xx_hal_tim_ex.o \
-           lib/hal/Src/stm32f0xx_hal_adc.o \
-           lib/hal/Src/stm32f0xx_hal_adc_ex.o \
-           lib/hal/Src/stm32f0xx_hal_pcd.o \
-           lib/hal/Src/stm32f0xx_hal_pcd_ex.o \
-           lib/hal/Src/stm32f0xx_hal_spi.o
+           lib/hal/Src/stm32f0xx_hal_rcc.o \
+           lib/hal/Src/stm32f0xx_hal_cortex.o
+           # lib/hal/Src/stm32f0xx_hal_uart.o \
+           # lib/hal/Src/stm32f0xx_hal_rcc_ex.o \
+           # lib/hal/Src/stm32f0xx_hal_tim.o \
+           # lib/hal/Src/stm32f0xx_hal_tim_ex.o \
+           # lib/hal/Src/stm32f0xx_hal_adc.o \
+           # lib/hal/Src/stm32f0xx_hal_adc_ex.o \
+           # lib/hal/Src/stm32f0xx_hal_pcd.o \
+           # lib/hal/Src/stm32f0xx_hal_pcd_ex.o \
+           # lib/hal/Src/stm32f0xx_hal_spi.o
 
-USB_OBJS = src/usbd_cdc_if.o \
-           src/usbd_conf.o \
-           src/usbd_desc.o \
-           src/usb_device.o \
-           lib/cmsis/Device/ST/STM32F0xx/Source/Templates/system_stm32f0xx.o \
-           lib/cmsis/Device/ST/STM32F0xx/Source/Templates/gcc/startup_stm32f042x6.o \
-           lib/usb/Core/Src/usbd_core.o \
-           lib/usb/Core/Src/usbd_ctlreq.o \
-           lib/usb/Core/Src/usbd_ioreq.o \
-           lib/usb/Class/CDC/Src/usbd_cdc.o
+BSP_OBJS = lib/bsp/stm32f072b_discovery.o
 
-OBJS = $(CORE_OBJS) $(HAL_OBJS) $(USB_OBJS)
+USB_OBJS = lib/cmsis/Device/ST/STM32F0xx/Source/Templates/gcc/startup_stm32f072xb.o
+		   # lib/cmsis/Device/ST/STM32F0xx/Source/Templates/system_stm32f0xx.o \
+           # lib/usb/Core/Src/usbd_core.o \
+           # lib/usb/Core/Src/usbd_ctlreq.o \
+           # lib/usb/Core/Src/usbd_ioreq.o \
+           # lib/usb/Class/CDC/Src/usbd_cdc.o
+           # src/usbd_cdc_if.o \
+           # src/usbd_conf.o \
+           # src/usbd_desc.o \
+           # src/usb_device.o \
+
+OBJS = $(CORE_OBJS) $(HAL_OBJS) $(BSP_OBJS) $(USB_OBJS)
 
 PROJ_NAME=main
 
 LDSCRIPT_INC=ld
-LDSCRIPT=STM32F042K6_FLASH.ld
+LDSCRIPT=STM32F072RBTx_FLASH.ld
 
 CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
 OBJDUMP=arm-none-eabi-objdump
 SIZE=arm-none-eabi-size
 
-CFLAGS  = -Wall -Werror -g -std=c11 -Os -DSTM32F042x6
+# Can also try -Og -- which will optimize while keeping debugging capabilities.
+CFLAGS  = -Wall -Werror -g -std=c11 -Os -DSTM32F072xB
 CFLAGS += -mlittle-endian -mcpu=cortex-m0 -mthumb
-CFLAGS += -ffunction-sections -fdata-sections --specs=nosys.specs -nostdlib
+# -nostdlib
+CFLAGS += -ffunction-sections -fdata-sections --specs=nosys.specs
 CFLAGS += -Wl,--gc-sections
 CFLAGS += -DUSE_FULL_ASSERT
 
@@ -58,10 +61,11 @@ LDFLAGS  =
 
 CFLAGS += -I inc
 CFLAGS += -I lib/hal/Inc
+CFLAGS += -I lib/bsp
 CFLAGS += -I lib/cmsis/Device/ST/STM32F0xx/Include
 CFLAGS += -I lib/cmsis/Include
-CFLAGS += -I lib/usb/Core/Inc
-CFLAGS += -I lib/usb/Class/CDC/Inc
+# CFLAGS += -I lib/usb/Core/Inc
+# CFLAGS += -I lib/usb/Class/CDC/Inc
 
 all: main.bin main.lst
 
@@ -86,8 +90,8 @@ $(PROJ_NAME).elf: $(OBJS)
 	@echo "[LST]  $@"
 	@$(OBJDUMP) -d $< > $@
 
-hw/bom.md: hw/bom.csv
-	csvtomd $< > $@
+# hw/bom.md: hw/bom.csv
+# 	csvtomd $< > $@
 
 debugserver: main.bin
 	openocd -f ocd/target.cfg

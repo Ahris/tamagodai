@@ -85,27 +85,3 @@ B1 USER: User and Wake-Up button connected to the I/O PA0 of the STM32F072RBT6.
     (gdb) target remote localhost:4444
 
 ------------
-
-    arm-none-eabi-nm -S -n ./build/main.elf
-
-The way I compiled + linked is probably wrong!! NM shows a bunch of undefined symbols:
-
-     arm-none-eabi-nm -S -n ./build/main.elf
-     U BSP_LED_Init
-     U BSP_LED_Toggle
-     w __deregister_frame_info
-     U _exit
-     U free
-     U HAL_GPIO_EXTI_IRQHandler
-     U HAL_GPIO_Init
-     U HAL_IncTick
-
-
-https://stackoverflow.com/questions/2329722/nm-u-the-symbol-is-undefined
-
-An undefined symbol is a symbol that the library uses but was not defined in any of the object files that went into creating the library.
-
-Usually the symbol is defined in another library which also needs to be linked in to your application. Alternatively the symbol is undefined because you've forgotten to build the code that defines the symbol or you've forgotten to include the object file with that symbol into your library.
-
-------------
-
