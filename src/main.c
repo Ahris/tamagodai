@@ -173,10 +173,16 @@ static void EXTI0_1_IRQHandler_Config(void)
   /* Enable GPIOA clock */
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
-  /* Configure PA.00 pin as input floating */
-  GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStructure.Pull = GPIO_NOPULL;
-  GPIO_InitStructure.Pin = GPIO_PIN_0;
+  // /* Configure PA.00 pin as input floating */
+  // GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
+  // GPIO_InitStructure.Pull = GPIO_NOPULL;
+  // GPIO_InitStructure.Pin = GPIO_PIN_0;
+  // HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+  /* Configure each of the buttons' pins */
+  GPIO_InitStructure.Mode = BUTTON_GPIO_MODE;
+  GPIO_InitStructure.Pull = BUTTON_GPIO_PULL;
+  GPIO_InitStructure.Pin = GPIO_PIN_0 + BUTTON0_PIN + BUTTON1_PIN + BUTTON2_PIN;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
 
   /* Enable and set EXTI line 0 Interrupt to the lowest priority */
@@ -191,10 +197,21 @@ static void EXTI0_1_IRQHandler_Config(void)
   */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-  if (GPIO_Pin == GPIO_PIN_0)
-  {
-    /* Toggle LED3 */
-    BSP_LED_Toggle(LED3);
+  switch(GPIO_Pin) {
+    case BUTTON0_PIN:
+      BSP_LED_Toggle(LED3);
+      break;
+    case BUTTON1_PIN:
+      BSP_LED_Toggle(LED4);
+      break;
+    case BUTTON2_PIN:
+      BSP_LED_Toggle(LED5);
+      break;
+    case GPIO_PIN_0:
+      BSP_LED_Toggle(LED6);
+      break;
+    default:
+      break;
   }
 }
 
