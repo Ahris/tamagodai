@@ -129,6 +129,16 @@ void EXTI0_1_IRQHandler(void)
 }
 
 /**
+  * @brief  This function handles external line 4 through 15 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI4_15_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(EXTI->PR);
+}
+
+/**
   * @}
   */
 

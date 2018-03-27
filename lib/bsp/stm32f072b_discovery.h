@@ -52,10 +52,10 @@
 /** @defgroup STM32F072B_DISCOVERY STM32F072B_DISCOVERY
   * @{
   */
-      
+
 /** @defgroup STM32F072B_DISCOVERY_Common STM32F072B_DISCOVERY Common
   * @{
-  */ 
+  */
 
 /** @defgroup STM32F072B_DISCOVERY_Exported_Types Exported Types
   * @{
@@ -64,7 +64,7 @@
 /**
  * @brief LED Types Definition
  */
-typedef enum 
+typedef enum
 {
   LED3 = 0,
   LED4 = 1,
@@ -80,54 +80,54 @@ typedef enum
 /**
  * @brief BUTTON Types Definition
  */
-typedef enum 
+typedef enum
 {
   BUTTON_USER = 0
 }Button_TypeDef;
 
-typedef enum 
-{  
+typedef enum
+{
   BUTTON_MODE_GPIO = 0,
   BUTTON_MODE_EXTI = 1
 }ButtonMode_TypeDef;
 
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup STM32F072B_DISCOVERY_Exported_Constants Exported Constants
   * @{
-  */ 
+  */
 /**
-  * @brief  Define for STM32F072B_DISCOVERY board  
-  */ 
+  * @brief  Define for STM32F072B_DISCOVERY board
+  */
 #if !defined (USE_STM32072B_DISCO)
  #define USE_STM32072B_DISCO
 #endif
 /** @defgroup STM32F072B_DISCOVERY_LED STM32F072B_DISCOVERY LED
   * @{
   */
-#define LEDn                             4
+#define LEDn                             1
 
 #define LED3_PIN                         GPIO_PIN_6
 #define LED3_GPIO_PORT                   GPIOC
-#define LED3_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOC_CLK_ENABLE()  
-#define LED3_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOC_CLK_DISABLE() 
+#define LED3_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOC_CLK_ENABLE()
+#define LED3_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOC_CLK_DISABLE()
 
 #define LED4_PIN                         GPIO_PIN_8
 #define LED4_GPIO_PORT                   GPIOC
-#define LED4_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOC_CLK_ENABLE()  
-#define LED4_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOC_CLK_DISABLE() 
-  
+#define LED4_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOC_CLK_ENABLE()
+#define LED4_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOC_CLK_DISABLE()
+
 #define LED5_PIN                         GPIO_PIN_9
 #define LED5_GPIO_PORT                   GPIOC
-#define LED5_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOC_CLK_ENABLE()  
-#define LED5_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOC_CLK_DISABLE()  
+#define LED5_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOC_CLK_ENABLE()
+#define LED5_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOC_CLK_DISABLE()
 
 #define LED6_PIN                         GPIO_PIN_7
 #define LED6_GPIO_PORT                   GPIOC
-#define LED6_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOC_CLK_ENABLE()  
-#define LED6_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOC_CLK_DISABLE() 
+#define LED6_GPIO_CLK_ENABLE()           __HAL_RCC_GPIOC_CLK_ENABLE()
+#define LED6_GPIO_CLK_DISABLE()          __HAL_RCC_GPIOC_CLK_DISABLE()
 
 #define LEDx_GPIO_CLK_ENABLE(__LED__) do { if((__LED__) == LED3) LED3_GPIO_CLK_ENABLE(); else \
                                            if((__LED__) == LED4) LED4_GPIO_CLK_ENABLE(); else \
@@ -140,11 +140,11 @@ typedef enum
                                          ((__LED__) == LED6) ? LED6_GPIO_CLK_DISABLE() : 0 )
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup STM32F072B_DISCOVERY_BUTTON STM32F072B_DISCOVERY BUTTON
   * @{
-  */  
+  */
 #define BUTTONn                          1
 
 /**
@@ -165,7 +165,7 @@ typedef enum
 
 /** @defgroup STM32F072B_DISCOVERY_BUS STM32F072B_DISCOVERY BUS
   * @{
-  */  
+  */
 #if defined(HAL_SPI_MODULE_ENABLED)
 /*##################### SPI1 ###################################*/
 #define DISCOVERY_SPIx                        SPI2
@@ -181,7 +181,7 @@ typedef enum
    on accurate values, they just guarantee that the application will not remain
    stuck if the SPI communication is corrupted.
    You may modify these timeout values depending on CPU frequency and application
-   conditions (interrupts routines ...). */   
+   conditions (interrupts routines ...). */
 #define SPIx_TIMEOUT_MAX                      ((uint32_t)0x1000)
 #endif /* HAL_SPI_MODULE_ENABLED */
 
@@ -208,13 +208,13 @@ typedef enum
    on accurate values, they just guarantee that the application will not remain
    stuck if the I2C communication is corrupted.
    You may modify these timeout values depending on CPU frequency and application
-   conditions (interrupts routines ...). */   
+   conditions (interrupts routines ...). */
 //#define I2Cx_TIMEOUT_MAX                  ((uint32_t)0xFFFF)
 #define I2Cx_TIMEOUT_MAX                  ((uint32_t)0x10000)
 
 #define DISCOVERY_I2Cx_TIMING                       0x40B32537
 
-#define DISCOVERY_EEPROM_I2C_ADDRESS_A01           0xA0  
+#define DISCOVERY_EEPROM_I2C_ADDRESS_A01           0xA0
 
 #endif /* HAL_I2C_MODULE_ENABLED */
 
@@ -227,8 +227,8 @@ typedef enum
   */
 /*##################### GYRO ##########################*/
 /* Read/Write command */
-#define READWRITE_CMD                         ((uint8_t)0x80) 
-/* Multiple byte read/write command */ 
+#define READWRITE_CMD                         ((uint8_t)0x80)
+/* Multiple byte read/write command */
 #define MULTIPLEBYTE_CMD                      ((uint8_t)0x40)
 /* Dummy Byte Send by the SPI Master device in order to generate the Clock to the Slave device */
 #define DUMMY_BYTE                            ((uint8_t)0x00)
@@ -249,20 +249,20 @@ typedef enum
 #define GYRO_INT_GPIO_CLK_ENABLE()       __HAL_RCC_GPIOC_CLK_ENABLE()
 #define GYRO_INT_GPIO_CLK_DISABLE()      __HAL_RCC_GPIOC_CLK_DISABLE()
 #define GYRO_INT1_PIN                    GPIO_PIN_1                  /* PC.01 */
-#define GYRO_INT1_EXTI_IRQn              EXTI0_1_IRQn 
+#define GYRO_INT1_EXTI_IRQn              EXTI0_1_IRQn
 #define GYRO_INT2_PIN                    GPIO_PIN_2                  /* PC.02 */
-#define GYRO_INT2_EXTI_IRQn              EXTI2_3_IRQn 
+#define GYRO_INT2_EXTI_IRQn              EXTI2_3_IRQn
 
 /*##################### EEPROM ##########################*/
 /**
   * @brief  I2C EEPROM Interface pins
   */
-#define DISCOVERY_EEPROM_DMA                       DMA1   
+#define DISCOVERY_EEPROM_DMA                       DMA1
 #define DISCOVERY_EEPROM_DMA_CHANNEL_TX            DMA1_Channel4
 #define DISCOVERY_EEPROM_DMA_CHANNEL_RX            DMA1_Channel5
 #define DISCOVERY_EEPROM_DMA_CLK_ENABLE()          __HAL_RCC_DMA1_CLK_ENABLE()
 #define DISCOVERY_EEPROM_DMA_CLK_DISABLE()         __HAL_RCC_DMA1_CLK_DISABLE()
-   
+
 #define DISCOVERY_EEPROM_DMA_TX_IRQn               DMA1_Channel4_5_6_7_IRQn
 #define DISCOVERY_EEPROM_DMA_RX_IRQn               DMA1_Channel4_5_6_7_IRQn
 #define DISCOVERY_EEPROM_DMA_PREPRIO               0
@@ -270,11 +270,11 @@ typedef enum
 
 /**
   * @}
-  */  
+  */
 
 /**
   * @}
-  */  
+  */
 
 /** @defgroup STM32F072B_DISCOVERY_Exported_Functions Exported Functions
   * @{

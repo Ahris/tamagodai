@@ -100,3 +100,13 @@ Probs not. Need to make sure the resistor to ground has a sufficiently high valu
 
 ------------
 
+## Issue Log #3
+
+Setting up external interrupts
+
+
+
+>>> p/x ((EXTI_TypeDef *)0x40010400)->PR
+$4 = 0x400
+>>> p GPIO_Pin
+$5 = 1
